@@ -72,7 +72,6 @@ button { font-family: inherit; cursor: pointer; }
 /* app bar used on dashboard / demo */
 .appbar { display: flex; justify-content: space-between; align-items: center; gap: 12px 20px; flex-wrap: wrap; padding: 12px 20px; border-bottom: 1px solid var(--line); background: var(--bg); }
 .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.02em; }
-.logo .mark { width: 26px; height: 26px; border-radius: 5px; background: var(--accent); display: grid; place-items: center; color: #fff; font: 800 15px var(--font); }
 .logo small { font: 500 12px var(--mono); color: var(--dim); letter-spacing: 0; }
 
 .select {
