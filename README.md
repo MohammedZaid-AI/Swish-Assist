@@ -1,142 +1,229 @@
 # Swish Assist
 
-**An AI support and ordering agent for Swish, on WhatsApp. It resolves a missing item from a photo in about 30 seconds, not 30 minutes.**
+**An AI support and ordering agent for Swish. It resolves a missing-item complaint from a photo in seconds, not 30 minutes.**
 
 > Unofficial concept by Mohammed Zaid. Not affiliated with Swish. No Swish logos, brand assets or real customer data are used.
 
-## What this is and why
+### ▶ Try it: **https://swish-assist.onrender.com/demo**
 
-Swish delivers food in 10 minutes from its own kitchens in HSR Layout. App reviews keep repeating the same complaints:
+No sign-up or install needed. The page shows a WhatsApp-style customer chat on the left and the support team's live dashboard on the right. The [step-by-step test guide](#test-it-step-by-step-about-5-minutes) is below.
 
-- wrong or missing items,
-- support that is slow or never replies,
-- delivery times that can't be trusted,
-- coupons that confuse people.
+---
 
-Today, a human agent reads every complaint and decides each refund by hand.
+## What it does
+
+Swish delivers food in 10 minutes from its own kitchens in HSR Layout. App reviews keep repeating the same complaints: wrong or missing items, slow support, delivery times that can't be trusted, and confusing coupons. Today a human agent reads every complaint and decides each refund by hand.
 
 Swish Assist does three jobs:
 
-1. **Photo complaint, resolved in seconds (the hero feature).** The customer says "my fries are missing" and sends a photo. A vision model compares the photo with the order. Fraud checks run. Small, confident cases are refunded instantly. Everything else goes to a human with a summary they can act on in 10 seconds.
-2. **Honest order status.** "Where is my food?" gets the real stage, the ETA, and the reason for any delay, in plain words.
-3. **Reorder my usual with the best coupon.** "Same as usual" or "same as last Friday" finds the right past order, checks every coupon's rules, shows the total, and places the order after a yes.
+1. **Photo complaint, resolved in seconds.** The customer says "my fries are missing" and sends a photo. Fraud checks run first. A vision model compares the photo with the order. Small, confident cases are refunded instantly. Anything else goes to a human, with a summary they can act on in 10 seconds.
+2. **Honest order status.** "Where is my food?" gets the real stage, the ETA and the reason for any delay, in plain words.
+3. **Reorder "my usual" with the best coupon.** It finds the right past order, checks every coupon's rules, shows the total and places the order only after the customer says yes.
 
-It works on WhatsApp (Twilio) and in a web chat that looks like WhatsApp, so anyone can try it from a link. A live support dashboard shows the other side.
+It answers in English, Hinglish and Kannada.
 
-## Architecture in 30 seconds
+---
+
+## Test it step by step (about 5 minutes)
+
+Open **[/demo](https://swish-assist.onrender.com/demo)**.
+
+- **Chat panel (left):** pick a customer from the **Demo user** dropdown, then type a message or tap a quick-reply chip.
+- **Dashboard panel (right):** updates live as you chat.
+- **Before you start, click "Reset demo"** (top of the chat). It puts every customer and order back to the starting state. Click it again whenever you want to start over.
+
+### The demo customers
+
+| Customer | Their situation | Good for testing |
+|---|---|---|
+| **Priya** | Has an order on the way, delayed by rain. Usually orders cold coffee + chicken popcorn. | Order status, reorder with coupon |
+| **Sneha** | Order delivered 10 minutes ago: fries, burger, cold coffee | Photo complaint → instant refund |
+| **Vikram** | Got refunds on 5 of his last 8 orders | Fraud detection |
+| **Arjun** | Writes in Hinglish | Language |
+| **Ananya** | Prefers Kannada | Language |
+| **Rahul** | Weekday lunch regular | Order status, reorder |
+
+### Test 1: Where is my food?
+
+| Step | What you should see |
+|---|---|
+| Pick **Priya** and tap **Where is my food** | A status card with a progress bar: *out for delivery*, ETA about 6 minutes, and the reason for the delay (heavy rain) |
+| On the dashboard, find Priya's order under **Live orders** and click **Next ›**, then ask again | The order has moved to the next stage |
+
+### Test 2: Reorder "my usual" with the best coupon
+
+| Step | What you should see |
+|---|---|
+| Still as **Priya**, tap **Order my usual** | A cart card: Cold Coffee + Chicken Popcorn, coupon **HUNGRY20** saves ₹49, total **₹199** |
+| Open **Why not other coupons** on the card | Why each other coupon doesn't apply (expired, already used twice, minimum order not met…) |
+| Tap **Confirm order** | Order placed with a new order number, and it appears under **Live orders** on the dashboard |
+
+Nothing is ordered until the customer says yes.
+
+### Test 3: Photo complaint, refunded instantly (the main feature)
+
+| Step | What you should see |
+|---|---|
+| Pick **Sneha**, click **Use sample photo** (a burger with no fries), type `my fries are missing` and send | Within a few seconds: *"Your Classic Fries is missing. ₹99 refunded to your Swish wallet."* |
+| Look at the dashboard | A new card at the top of the feed with the photo, what the AI saw (with confidence bars) and the time it took. The tiles for complaints, refunds and resolution time update. |
+
+### Test 4: Fraud caught, before any AI call
+
+| Step | What you should see |
+|---|---|
+| Pick **Vikram**, click **Use sample photo** (the same photo Sneha just used), type `my fries are missing` and send | *"I've passed this to our support team…"*. No refund. |
+| Look at the dashboard | Vikram's card is marked **Escalated** with red badges **Duplicate photo** and **High refund rate**, plus **⚡ vision skipped, flagged early**. The **Vision calls saved** tile goes up by 1. |
+| In the **Escalation queue**, click **Approve** (or **Reject**) | Vikram's chat gets a message from the "Swish support team" with the outcome |
+
+Test 4 shows the fraud checks running *before* the AI looks at the photo. A reused photo is caught for free, and the AI model is never called.
+
+### More things to try
+
+Use the 📎 button next to the message box to upload your own photo.
+
+| Try this | What should happen |
+|---|---|
+| **Sneha** (after Reset demo): upload a photo that isn't food, e.g. a keyboard, with `my fries are missing` | Escalated with **Not a food photo** |
+| **Sneha**: upload an old photo from your gallery (taken days ago) | Escalated with **Old photo (EXIF)**: the photo was taken before the order existed |
+| **Priya**: upload any photo with `fries missing in order SW7001` | Escalated with **Before delivery**: that order hasn't arrived yet |
+| **Arjun**: `bhai mera order kahan hai` | Reply in Hinglish |
+| **Ananya**: `ನನ್ನ ಆರ್ಡರ್ ಎಲ್ಲಿದೆ` | Reply in Kannada |
+| Anyone: `I want to talk to a human` | Handed to the support team; appears in the escalation queue |
+
+Separate pages: [/chat](https://swish-assist.onrender.com/chat) is the chat alone (works well on a phone), [/dashboard](https://swish-assist.onrender.com/dashboard) is the dashboard alone, and [/](https://swish-assist.onrender.com/) is the overview with accuracy numbers.
+
+### If something looks off
+
+- **A reply takes 10–20 seconds.** The demo runs on Groq's free tier, which limits requests per minute. Wait about 20 seconds between photo complaints. Nothing is broken; the bot says "One sec, checking…" and retries.
+- **Results don't match the tables above.** Someone else may have tested before you. Click **Reset demo**.
+- **Vikram's photo went to the vision model.** Sneha's complaint must come first, so the photo is already on record. Reset and run Test 3 before Test 4.
+
+---
+
+## How it works
 
 ```
-WhatsApp (Twilio) ──┐
-                    ├─> agent.py ── Groq gpt-oss-120b, tool calling (max 6 rounds)
-Web chat /api/chat ─┘        │
-                             ├─ get_order_status / get_recent_orders / get_usual_order
-                             ├─ apply_best_coupon / place_order
-                             ├─ check_photo_complaint ──> Groq vision model (JSON mode)
-                             │        └─ fraud.py: duplicate photo hash, timing, refund rate, EXIF, photo mismatch
-                             └─ escalate_to_human
-                db.py: Supabase Postgres, or SQLite when SUPABASE_URL is empty
-                simulator.py moves live orders through their stages · SSE pushes updates to the dashboard
+Web chat (/chat, /demo) ──> agent.py ── Groq gpt-oss-120b, tool calling (max 6 rounds)
+                                │
+                                ├─ get_order_status / get_recent_orders / get_usual_order
+                                ├─ apply_best_coupon / place_order
+                                ├─ check_photo_complaint
+                                │     1. cheap fraud checks: duplicate photo, timing, refund history, EXIF date
+                                │     2. only if they pass: Groq vision model (JSON mode) + content checks
+                                │     3. decide(): refund, replace, no issue, or escalate
+                                └─ escalate_to_human
+               db.py: SQLite (or Supabase Postgres when configured)
+               simulator.py moves live orders through their stages · live updates push to the dashboard
 ```
 
-- **The chat model never sees images.** An uploaded photo becomes `img_123`. Only `check_photo_complaint` sends it to the vision model, after resizing it to 1280 px JPEG under 3.5 MB.
-- **Every decision rule lives in one pure function**, `decide()` in [app/tools/complaints.py](app/tools/complaints.py), with a unit test for each branch.
-- **The provider layer is thin.** [app/llm.py](app/llm.py) has `chat_with_tools` and `vision_json`, with retries on 429/5xx and an automatic model fallback. To swap providers, change that one file.
-- **No API key? It still runs.** The agent drops to a rule-based router and the vision step recognises the bundled sample photo, so every page works offline.
+- **The chat model never sees images.** An uploaded photo becomes an id like `img_123`. Only the photo-check tool sends it to the vision model, resized to 1280 px.
+- **Every decision rule lives in one function**, `decide()` in [app/tools/complaints.py](app/tools/complaints.py), with a test for each rule.
+- **One file talks to the AI provider:** [app/llm.py](app/llm.py). It handles retries and switches to a backup model when one is busy.
+- **It still works without an API key.** A rule-based fallback answers the chat, and the bundled sample photo is recognised, so every page works offline.
+- The agent can also sit behind real WhatsApp: a webhook is included in [app/whatsapp.py](app/whatsapp.py).
 
-## Run it locally (3 commands)
+### The decision rules
 
-```bash
-pip install -r requirements.txt
-cp .env.example .env        # add your GROQ_API_KEY
-uvicorn app.main:app --reload
-```
-
-Open http://localhost:8000. The database is created and seeded on first start. The best view for a demo is http://localhost:8000/demo: chat on the left, dashboard on the right.
-
-Other useful commands:
-
-```bash
-python scripts/seed.py --reset                  # wipe and reseed (also: "Reset demo" button)
-python -m app.agent --user priya                # chat in the terminal
-python -m app.agent --user sneha --image static/samples/burger_no_fries.jpg
-```
-
-Demo users: **Priya** (live order delayed by rain, usual = cold coffee + chicken popcorn), **Rahul** (weekday lunch), **Ananya** (Kannada), **Arjun** (Hinglish), **Sneha** (order delivered 10 minutes ago: fries, burger, cold coffee), **Vikram** (refunds on 5 of his last 8 orders).
-
-## The decision rules
-
-The checks run in two stages, cheapest first:
-
-1. **Cheap checks, before any model call:** duplicate photo hash, complaint timing, refund history, EXIF date. If any of them flags the case, the complaint is escalated straight away with those flags in the summary and **the vision model is never called**. The dashboard card shows "vision skipped, flagged early", and the "Vision calls saved" tile counts these cases. The human reviewer still sees the value of the items the customer named, so Approve refunds that amount.
-2. **Vision check, then the checks that need it** (not a food photo, photo doesn't match the order).
+Checks run cheapest first:
 
 | Situation | Decision |
 |---|---|
-| A cheap check flags (duplicate photo, complaint before delivery or 3+ hours after, refund rate over 30% of the last 10 orders, EXIF date older than the order) | Escalate immediately, vision skipped |
-| Vision check failed or returned broken JSON twice | Escalate to a human |
-| Vision runs and a content check flags (not a food photo, photo doesn't match the order) | Escalate, with a summary |
-| Overall confidence below `AUTO_REFUND_MIN_CONFIDENCE` (0.8) | Escalate |
-| Nothing missing or wrong, confident | `no_issue_found`: reply with what was seen, offer a human |
-| Only a quality issue (spilled, burnt), no fixed value | Escalate |
-| Refund value above `AUTO_REFUND_MAX_INR` (₹300) | Escalate |
-| Customer asked for a replacement and the kitchen is under 1 km away | `auto_replace` |
-| Otherwise | `auto_refund` for the value of the missing items |
+| A cheap check flags it: same photo used before, complaint before delivery or 3+ hours after, refunds on over 30% of the last 10 orders, photo taken before the order | Escalate immediately; the vision model is not called |
+| The vision check fails | Escalate |
+| Not a food photo, or none of the ordered items visible | Escalate |
+| AI confidence below 80% | Escalate |
+| Everything ordered is visible | "No issue found"; offer a human |
+| Only a quality problem (spilled, burnt) | Escalate |
+| Refund above ₹300 | Escalate |
+| Customer wants a replacement and the kitchen is under 1 km away | Send a replacement |
+| Otherwise | Refund the missing items instantly |
 
-One more safety rule: if the customer names an item ("my fries are missing"), only that item can be refunded. Anything else the photo can't see is noted for the human but not refunded.
+Only items the customer names can be refunded automatically. If they say "fries" and the photo also doesn't show the coffee, the coffee is noted for a human but not refunded.
 
-Every complaint is saved with the vision model used, its latency, the raw vision result, the fraud flags and `resolution_seconds`, measured from the customer's first complaint message to the decision.
+Every complaint records the vision model used, its response time, what it saw, the fraud flags and the total time from the customer's first message to the decision.
 
-## Connect WhatsApp (Twilio sandbox)
+---
 
-1. Create a free Twilio account. Open **Messaging → Try it out → Send a WhatsApp message**, and join the sandbox from your phone by sending the join code to the sandbox number.
-2. Put `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` and `TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886` in `.env`.
-3. Expose your local server:
-   ```bash
-   ngrok http 8000
-   ```
-4. Set `PUBLIC_BASE_URL` to the ngrok https URL and restart. Signature validation uses it.
-5. In the sandbox settings, set **When a message comes in** to `https://<your-ngrok-id>.ngrok-free.app/whatsapp` (method POST).
-6. Send "where is my food" from WhatsApp. A new number becomes a new user and gets a copy of Sneha's just-delivered order (fries, burger, cold coffee). That means you can try the photo flow right away: send any food photo with "my fries are missing".
+## Run it on your own machine
 
-Notes:
-- Twilio waits 15 seconds for the webhook. If an answer takes longer, for example because of a rate-limit retry, the bot replies "One sec, checking…" and pushes the real answer through the Twilio API.
-- Approve or reject decisions from the dashboard are also pushed to WhatsApp users.
+You need Python 3.11+ and a free Groq API key from [console.groq.com/keys](https://console.groq.com/keys). Without a key it still runs, in offline mode.
 
-## Tests and the eval
-
-```bash
-pytest                                   # 80+ tests, no API keys needed (Groq is mocked)
-python scripts/eval_photos.py            # photo checker accuracy on test_images/
-python scripts/eval_photos.py --compare  # primary vs fallback vision model
+**Windows (PowerShell)**
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env      # then open .env and paste your key after GROQ_API_KEY=
+uvicorn app.main:app --reload
 ```
 
-The eval reads `test_images/labels.json`. Each case pairs a photo with an order and lists the items that should be flagged as missing or wrong. It prints per-case results, precision and recall, average latency and the decision mix, and saves `eval_results.json`. The landing page then shows the headline numbers. On the Groq free tier it waits 20 seconds between cases because of token-per-minute limits; use `--delay 0` on a paid tier.
+**macOS / Linux**
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env        # then paste your key after GROQ_API_KEY=
+uvicorn app.main:app --reload
+```
 
-## Deploy to Render
+Open **http://localhost:8000/demo** and follow the [test guide](#test-it-step-by-step-about-5-minutes). Demo data is created automatically on first start.
 
-1. Push this repo to GitHub and create a **Blueprint** on Render from it. `render.yaml` defines one web service.
-2. Set `GROQ_API_KEY` (and optionally the Twilio and Supabase variables) in the Render dashboard.
-3. Set `PUBLIC_BASE_URL` to your Render URL, for example `https://swish-assist.onrender.com`.
-4. In the Twilio sandbox, set the webhook to `https://swish-assist.onrender.com/whatsapp`.
+Handy extras:
 
-**No "waking up" screen for testers.** Render's free plan puts the app to sleep after about 15 minutes without traffic, and the next visitor waits about a minute. Two things prevent that:
+```bash
+python scripts/seed.py --reset                     # wipe and reload demo data (same as "Reset demo")
+python -m app.agent --user priya                   # chat with the agent in the terminal
+python -m app.agent --user sneha --image static/samples/burger_no_fries.jpg
+```
 
-- **The app pings itself.** On Render, [app/keepalive.py](app/keepalive.py) requests its own `/health` every 10 minutes (`KEEP_ALIVE_MINUTES`), so it never goes idle. It uses Render's `RENDER_EXTERNAL_URL` automatically.
-- **A GitHub Actions cron job is the backup.** [.github/workflows/keep-alive.yml](.github/workflows/keep-alive.yml) pings `/health` every 10 minutes and wakes the app after a deploy or restart. To turn it on, add a repository variable `APP_URL` = your Render URL (Settings → Secrets and variables → Actions → Variables). You can also run it by hand from the Actions tab.
+### Automated tests (no API key needed)
 
-A free instance running all month uses about 744 of Render's 750 free instance hours, so keep this as the only always-on free service on the account.
+```bash
+pytest          # 90+ tests, about 10 seconds; the AI is replaced by a scripted fake
+pytest -v       # see every test by name
+```
 
-On startup the app creates its tables and seeds the demo data if the database is empty. With no Supabase variables it uses SQLite on the instance disk. That's fine for a demo, but it resets when Render restarts the instance.
+| Test file | What it checks |
+|---|---|
+| `test_coupons.py` | Every coupon rule: expiry, days and hours, minimum order, first order only, per-user limits, best coupon chosen |
+| `test_orders.py` | Order status and ETAs, delays, "my usual" matching, the order simulator |
+| `test_decision.py` | Each refund / escalate rule |
+| `test_fraud.py` | Each fraud check on its own |
+| `test_pipeline.py` | Cheap checks run first and skip the vision call when they flag |
+| `test_llm.py` | Retries, backup model, image resizing, broken AI output |
+| `test_api.py` | Full flows over HTTP: status, refund, fraud escalation, approve / reject |
+| `test_keepalive.py` | The keep-awake ping |
 
-**Using Supabase instead:** run [sql/schema.sql](sql/schema.sql) once in the Supabase SQL editor, then set `SUPABASE_URL` and `SUPABASE_KEY` (the service role key, kept on the server only). The app seeds it on first start.
+### Photo checker accuracy
 
-To keep the demo working hours after a deploy, the simulator re-anchors the seeded demo orders (Sneha's and Vikram's delivered orders, Priya's rain-delayed order) to the current time, as long as nobody has complained about them yet. Anything else is never touched.
+```bash
+python scripts/eval_photos.py            # needs GROQ_API_KEY; about 5 minutes on the free tier
+```
+
+This runs the real vision model on the labeled photos in `test_images/` and scores how often it finds the right missing items. Last run: **14 of 14 cases correct**, median about 2 seconds per photo. To add cases, drop a photo in `test_images/` and describe it in `test_images/labels.json`.
+
+---
+
+## Deploy your own copy (Render, free)
+
+1. Fork this repo, then on [render.com](https://render.com) choose **New → Blueprint** and pick the repo. `render.yaml` sets everything up.
+2. When asked, paste your `GROQ_API_KEY`. Leave the other fields empty.
+3. Open `https://<your-app>.onrender.com/demo`.
+
+**Keeping it awake:** Render's free plan sleeps after 15 idle minutes, and the next visitor waits about a minute. The app prevents this itself by pinging its own `/health` every 10 minutes ([app/keepalive.py](app/keepalive.py)). As a backup after deploys, the GitHub Actions job in [.github/workflows/keep-alive.yml](.github/workflows/keep-alive.yml) pings it too. Turn it on by adding a repository variable `APP_URL` = your Render URL (Settings → Secrets and variables → Actions → Variables).
+
+**Data:** by default the app uses SQLite on the server's disk. The demo data reloads automatically when Render restarts. To keep data permanently, run [sql/schema.sql](sql/schema.sql) in a Supabase project and set `SUPABASE_URL` and `SUPABASE_KEY`.
+
+---
 
 ## What I'd build next if this were real
 
-- **Connect to the real order system.** Read orders, kitchen events and rider GPS from Swish's backend instead of the simulator, and credit refunds through the real wallet API.
-- **A kitchen camera check at packing time.** The same vision model, run on a photo of every bag before it leaves the kitchen. Most "missing item" complaints get prevented instead of refunded, and the packing photo becomes evidence for disputes.
-- **A rider photo at delivery.** Proof of what was handed over, for the "before delivery" and "duplicate photo" fraud cases.
-- **Learn the thresholds from data.** Tune the confidence and value caps per item and per customer from human review outcomes, and track the cost of wrong auto-refunds against agent time saved.
-- **Proactive delay messages.** When the simulator, or the real system, sees a delay, message the customer before they ask.
-- **Voice notes.** Groq Whisper is available on the same account, so a Kannada or Hinglish voice note could be handled like text.
+- **Connect to the real order system.** Read orders, kitchen events and rider GPS from Swish's backend, and credit refunds through the real wallet.
+- **Kitchen camera check at packing time.** Run the same vision model on a photo of every bag before it leaves. Most missing-item complaints get prevented instead of refunded.
+- **Rider photo at delivery.** Proof of what was handed over, for disputed cases.
+- **Learn the thresholds from data.** Tune confidence and refund caps from human review outcomes.
+- **Proactive delay messages.** Tell the customer about a delay before they ask.
+- **Voice notes.** Handle Kannada or Hinglish voice notes the same way as text.
+
+---
+
+<sub>Unofficial concept by Mohammed Zaid. Not affiliated with Swish.</sub>
