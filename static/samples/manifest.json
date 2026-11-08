@@ -1,0 +1,10 @@
+{
+  "burger_no_fries.jpg": {
+    "hash": "eaa5953a6c429f85",
+    "visible": [
+      "burger"
+    ],
+    "label": "Burger only (fries missing)",
+    "reason": "A burger is clearly visible; no fries box or drink cup in the photo."
+  }
+}

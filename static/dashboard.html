@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swish Support Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo">S</span><div><strong>Swish Assist</strong><span>Support console</span></div></div>
+    <div class="status"><span class="dot" id="liveDot"></span><span id="liveText">Connecting…</span></div>
+  </header>
+
+  <section class="tiles" id="tiles" aria-label="Today's numbers"></section>
+
+  <main class="grid">
+    <section class="col feed-col">
+      <h2>Live complaint feed <span class="sub">newest first</span></h2>
+      <div id="feed" class="feed"></div>
+    </section>
+    <aside class="col side-col">
+      <section>
+        <h2>Escalation queue <span class="count" id="qCount">0</span></h2>
+        <div id="queue" class="queue"></div>
+      </section>
+      <section>
+        <h2>Live orders</h2>
+        <div class="table-wrap">
+          <table class="orders">
+            <thead><tr><th>Order</th><th>Customer</th><th>Stage</th><th>ETA</th><th></th></tr></thead>
+            <tbody id="orders"></tbody>
+          </table>
+        </div>
+      </section>
+    </aside>
+  </main>
+  <p class="foot-note">Unofficial concept by Mohammed Zaid. Not affiliated with Swish.</p>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

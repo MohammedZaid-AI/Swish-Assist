@@ -1,0 +1,228 @@
+{
+  "mode": "groq",
+  "summary": {
+    "model": "qwen/qwen3.8-27b",
+    "cases": 14,
+    "exact_match": 14,
+    "precision": 1.0,
+    "recall": 1.0,
+    "true_pos": 9,
+    "false_pos": 0,
+    "false_neg": 0,
+    "avg_latency_ms": 4140.357142857143,
+    "vision_failures": 0,
+    "decisions": {
+      "auto_refund": 9,
+      "no_issue_found": 5
+    },
+    "median_latency_ms": 2150.0
+  },
+  "cases": [
+    {
+      "image": "burger.jpg",
+      "expected": [
+        "Classic Fries"
+      ],
+      "flagged": [
+        "Classic Fries"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 1438,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo shows a cheeseburger but no fries are visible.",
+      "wall_ms": 2056
+    },
+    {
+      "image": "burger.jpg",
+      "expected": [],
+      "flagged": [],
+      "correct": true,
+      "decision": "no_issue_found",
+      "latency_ms": 722,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo clearly shows a cheeseburger with a sesame bun, lettuce, tomato, and patty, which matches the ordered item.",
+      "wall_ms": 729
+    },
+    {
+      "image": "broasted.jpg",
+      "expected": [
+        "Masala Chai"
+      ],
+      "flagged": [
+        "Masala Chai"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 816,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo shows a plate of fried chicken, but the ordered Masala Chai is not visible.",
+      "wall_ms": 834
+    },
+    {
+      "image": "biryani.jpg",
+      "expected": [],
+      "flagged": [],
+      "correct": true,
+      "decision": "no_issue_found",
+      "latency_ms": 880,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.9,
+      "reason": "The photo clearly shows a plate of Chicken Biryani with rice and chicken pieces, matching the order.",
+      "wall_ms": 896
+    },
+    {
+      "image": "biryani.jpg",
+      "expected": [
+        "Paneer Rice Bowl"
+      ],
+      "flagged": [
+        "Paneer Rice Bowl"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 2204,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo shows a plate of Chicken Biryani with meat pieces, which is clearly a different dish from the ordered Paneer Rice Bowl.",
+      "wall_ms": 2212
+    },
+    {
+      "image": "fried rice.jpg",
+      "expected": [
+        "Chicken Momos (6 pcs)"
+      ],
+      "flagged": [
+        "Chicken Momos (6 pcs)"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 2239,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.9,
+      "reason": "Veg Fried Rice is clearly visible, but no momos or their packaging are present in the photo.",
+      "wall_ms": 2248
+    },
+    {
+      "image": "kebabs.jpg",
+      "expected": [],
+      "flagged": [],
+      "correct": true,
+      "decision": "no_issue_found",
+      "latency_ms": 2066,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.9,
+      "reason": "The photo clearly shows four chicken tikka skewers, matching the quantity and type of the ordered item.",
+      "wall_ms": 2088
+    },
+    {
+      "image": "mandi.jpg",
+      "expected": [
+        "Cold Coffee"
+      ],
+      "flagged": [
+        "Cold Coffee"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 2104,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo shows the Chicken Mandi dish, but the Cold Coffee is not visible in the frame.",
+      "wall_ms": 2113
+    },
+    {
+      "image": "noodles.jpg",
+      "expected": [
+        "Veg Momos (6 pcs)"
+      ],
+      "flagged": [
+        "Veg Momos (6 pcs)"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 2383,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo shows a bowl of noodles but no momos or their packaging are visible.",
+      "wall_ms": 2392
+    },
+    {
+      "image": "pizza.jpg",
+      "expected": [
+        "Coke (500 ml)"
+      ],
+      "flagged": [
+        "Coke (500 ml)"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 2446,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo shows a cheese pizza, but the ordered Coke is not visible.",
+      "wall_ms": 2454
+    },
+    {
+      "image": "roti curry.jpg",
+      "expected": [],
+      "flagged": [],
+      "correct": true,
+      "decision": "no_issue_found",
+      "latency_ms": 2196,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The photo clearly shows two butter parottas and a bowl of chicken curry, matching the order details.",
+      "wall_ms": 2205
+    },
+    {
+      "image": "seekh.jpg",
+      "expected": [
+        "Walnut Brownie"
+      ],
+      "flagged": [
+        "Walnut Brownie"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 2210,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "The Seekh Kebabs are clearly visible on the plate, but the Walnut Brownie is completely absent from the photo.",
+      "wall_ms": 2229
+    },
+    {
+      "image": "shawarma.jpg",
+      "expected": [],
+      "flagged": [],
+      "correct": true,
+      "decision": "no_issue_found",
+      "latency_ms": 1985,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.9,
+      "reason": "The photo clearly shows three wrapped shawarma rolls, matching the quantity and type of items ordered.",
+      "wall_ms": 1992
+    },
+    {
+      "image": "shawarma.jpg",
+      "expected": [
+        "Peri Peri Fries"
+      ],
+      "flagged": [
+        "Peri Peri Fries"
+      ],
+      "correct": true,
+      "decision": "auto_refund",
+      "latency_ms": 34276,
+      "model": "qwen/qwen3.8-27b",
+      "confidence": 0.95,
+      "reason": "Three chicken shawarmas are visible, but the ordered Peri Peri Fries are completely absent from the photo.",
+      "wall_ms": 34284
+    }
+  ],
+  "comparison": null,
+  "ran_at": "2026-11-08 15:30"
+}

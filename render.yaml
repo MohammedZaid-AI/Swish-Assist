@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: swish-assist
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_CHAT_MODEL
+        value: openai/gpt-oss-120b
+      - key: GROQ_CHAT_FALLBACK_MODEL
+        value: openai/gpt-oss-20b
+      - key: GROQ_VISION_MODEL
+        value: qwen/qwen3.8-27b
+      - key: GROQ_VISION_FALLBACK_MODEL
+        value: meta-llama/llama-4-scout-17b-16e-instruct
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_NUMBER
+        value: whatsapp:+14155238886
+      - key: AUTO_REFUND_MAX_INR
+        value: "300"
+      - key: AUTO_REFUND_MIN_CONFIDENCE
+        value: "0.8"
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: GITHUB_URL
+        sync: false

@@ -1,0 +1,63 @@
+body { padding: 0 20px; }
+.top { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 12px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .logo { width: 36px; height: 36px; border-radius: 10px; background: var(--brand-dark); color: var(--lime); display: grid; place-items: center; font-weight: 800; font-size: 18px; }
+.brand div { display: flex; flex-direction: column; line-height: 1.15; }
+.brand span { font-size: 12px; color: var(--muted); }
+.status { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #c4ccc8; }
+.dot.on { background: var(--ok); box-shadow: 0 0 0 4px #dcfce7; }
+
+.tiles { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; }
+.tile { background: var(--card); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); min-width: 0; }
+.tile .label { font-size: 12px; font-weight: 600; color: var(--muted); }
+.tile .value { font-size: 28px; font-weight: 800; letter-spacing: -.03em; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.tile .value small { font-size: 15px; font-weight: 700; color: var(--muted); margin-left: 2px; }
+.tile .ctx { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.tile.hero { background: var(--brand-ink); color: #fff; }
+.tile.hero .label, .tile.hero .ctx, .tile.hero .value small { color: #b8d8ca; }
+.tile.hero .ctx b { color: var(--lime); }
+.tile.changed { animation: flash 1.2s ease-out; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+h2 { font-size: 15px; margin: 4px 0 10px; display: flex; align-items: center; gap: 8px; }
+h2 .sub { font-size: 12px; color: var(--muted); font-weight: 500; }
+h2 .count { background: var(--warn); color: #fff; border-radius: 99px; font-size: 11.5px; padding: 1px 8px; }
+.side-col { display: flex; flex-direction: column; gap: 16px; }
+
+.feed, .queue { display: flex; flex-direction: column; gap: 10px; }
+.c-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
+.c-card.new { animation: flash 1.6s ease-out; }
+.thumb { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; background: #eef2f0; display: grid; place-items: center; font-size: 26px; }
+.c-head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; flex-wrap: wrap; }
+.c-head strong { font-size: 14px; }
+.c-head .ord { font-size: 12px; color: var(--muted); }
+.c-msg { font-size: 13px; color: var(--ink); margin: 3px 0 6px; }
+.c-items { display: grid; gap: 4px; margin: 6px 0; }
+.c-items .conf > span:first-child { min-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.c-reason { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.c-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.c-actions { display: flex; gap: 8px; margin-top: 10px; }
+.empty { background: var(--card); border-radius: var(--radius); padding: 18px; color: var(--muted); font-size: 13px; text-align: center; box-shadow: var(--shadow); }
+
+.table-wrap { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow-x: auto; }
+table.orders { width: 100%; border-collapse: collapse; font-size: 13px; }
+.orders th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.orders td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.orders tr:last-child td { border-bottom: 0; }
+.orders .items { display: block; font-size: 11.5px; color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 7 tiles: one row on wide screens; below that 4 columns with the hero tile spanning 2 (two even rows) */
+@media (max-width: 1400px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } .tile.hero { grid-column: span 2; } }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) {
+  body { padding: 0 16px; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .c-card { grid-template-columns: 56px minmax(0, 1fr); }
+  .thumb { width: 56px; height: 56px; }
+}
+body.embed { padding: 0 14px; }
+body.embed .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+body.embed .tile.hero { grid-column: span 2; }
+body.embed .tile .value { font-size: 24px; }
+body.embed .grid { grid-template-columns: minmax(0, 1fr); }

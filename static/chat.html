@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Swish Assist Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/chat.css">
+</head>
+<body>
+  <div class="toolbar" id="toolbar">
+    <div class="tb-left">
+      <label class="tb-label" for="user">Demo user</label>
+      <select class="select" id="user"></select>
+      <span class="blurb" id="blurb"></span>
+    </div>
+    <div class="tb-right">
+      <button class="btn lime small" id="sampleBtn" title="Attach a sample photo of a delivered order">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3.2"/></svg>
+        Use sample photo
+      </button>
+      <button class="btn ghost small" id="resetBtn" title="Reseed the database and replay the demo">Reset demo</button>
+    </div>
+  </div>
+
+  <main class="stage">
+    <div class="phone">
+      <header class="wa-head">
+        <div class="avatar" aria-hidden="true">S</div>
+        <div class="who">
+          <strong>Swish Assist</strong>
+          <span id="presence">online</span>
+        </div>
+        <span class="mode" id="mode"></span>
+      </header>
+
+      <section class="thread" id="thread" aria-live="polite"></section>
+
+      <div class="chips" id="chips">
+        <button class="chip" data-text="Where is my food?">Where is my food</button>
+        <button class="chip" data-text="Something is missing from my order">Something is missing</button>
+        <button class="chip" data-text="Order my usual">Order my usual</button>
+      </div>
+
+      <div class="attachment" id="attachment" hidden>
+        <img id="attThumb" alt="">
+        <span id="attName"></span>
+        <button id="attClear" aria-label="Remove photo">✕</button>
+      </div>
+
+      <form class="composer" id="composer" autocomplete="off">
+        <label class="icon-btn" title="Attach a photo">
+          <input type="file" id="file" accept="image/*" hidden>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.5l-8.6 8.6a5.5 5.5 0 01-7.8-7.8l9.2-9.2a3.7 3.7 0 015.2 5.2l-9.2 9.2a1.8 1.8 0 01-2.6-2.6l8.5-8.5"/></svg>
+        </label>
+        <input id="text" type="text" placeholder="Message" maxlength="600">
+        <button class="send" type="submit" aria-label="Send">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4l17.5-7.5a1 1 0 000-1.8L3.4 3.6a1 1 0 00-1.4 1.2L4.5 12l-2.5 7.2a1 1 0 001.4 1.2z"/></svg>
+        </button>
+      </form>
+    </div>
+  </main>
+  <p class="foot-note">Unofficial concept by Mohammed Zaid. Not affiliated with Swish.</p>
+
+  <script src="/static/js/chat.js"></script>
+</body>
+</html>
