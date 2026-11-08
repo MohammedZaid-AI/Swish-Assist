@@ -1,16 +1,29 @@
 body { min-height: 100vh; display: flex; flex-direction: column; background:
-  radial-gradient(1200px 500px at 50% -10%, #d9f7e8 0%, transparent 60%), var(--bg); }
+  radial-gradient(700px 420px at 50% 105%, rgba(20,110,245,.22), transparent 70%),
+  repeating-linear-gradient(90deg, transparent 0 119px, rgba(255,255,255,.035) 119px 120px), var(--bg); }
+
+/* The phone keeps WhatsApp's own light look: local tokens override the dark site theme. */
+.phone {
+  --brand: #0f9d6b; --brand-dark: #075e54; --brand-ink: #063d2a; --lime: #c8f53a;
+  --ink: #111b21; --muted: #667781; --line: #e3e9e6; --card: #fff; --ok: #12a150; --info: #3b82f6; --warn: #f59e0b; --danger: #e5484d;
+  --ok-bg: #dcfce7; --ok-fg: #166534; --warn-bg: #fef3c7; --warn-fg: #92400e; --danger-bg: #fee2e2; --danger-fg: #991b1b;
+  --info-bg: #dbeafe; --info-fg: #1e40af; --muted-bg: #eef2f0; --muted-fg: #5d6f68; --track: #e6ece9; --accent: #0f9d6b; --accent-hover: #0c8a5d;
+  --font: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font); color: var(--ink); color-scheme: light;
+}
+.phone .badge { border-radius: 99px; }
+.phone .btn { border-radius: 99px; }
 
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 14px 20px; max-width: 980px; width: 100%; margin: 0 auto; }
 .tb-left, .tb-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.tb-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.tb-label { font: 500 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
 .blurb { font-size: 13px; color: var(--muted); max-width: 340px; }
 
 .stage { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: 4px 16px 0; }
 .phone {
   width: 400px; height: min(780px, calc(100vh - 120px)); min-height: 520px; display: flex; flex-direction: column;
   background: #efeae2; border-radius: 34px; overflow: hidden; position: relative;
-  box-shadow: 0 0 0 10px #0f1f19, 0 0 0 11px #2c3c36, 0 30px 60px rgba(6, 61, 42, .25);
+  box-shadow: 0 0 0 10px #050505, 0 0 0 11px #333, 0 30px 80px rgba(0, 0, 0, .55);
 }
 
 .wa-head { display: flex; align-items: center; gap: 12px; padding: 16px 16px 12px; background: var(--brand-dark); color: #fff; }

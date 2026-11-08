@@ -6,13 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Swish Support Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/static/css/base.css">
   <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
 <body>
-  <header class="top">
-    <div class="brand"><span class="logo">S</span><div><strong>Swish Assist</strong><span>Support console</span></div></div>
+  <header class="appbar top">
+    <a class="logo" href="/"><span class="mark">S</span>Swish Assist <small>/ support console</small></a>
+    <nav class="keys nav-keys" aria-label="Shortcuts">
+      <a href="/demo" data-key="d"><span class="key">D</span>Demo</a>
+      <a href="/chat" data-key="c"><span class="key">C</span>Chat</a>
+      <a href="/dashboard" data-key="b" aria-current="page"><span class="key">B</span>Dashboard</a>
+      <a href="/" data-key="h"><span class="key">H</span>Home</a>
+    </nav>
     <div class="status"><span class="dot" id="liveDot"></span><span id="liveText">Connecting…</span></div>
   </header>
 
@@ -20,7 +26,7 @@
 
   <main class="grid">
     <section class="col feed-col">
-      <h2>Live complaint feed <span class="sub">newest first</span></h2>
+      <h2>Live complaint feed <span class="sub">// newest first</span></h2>
       <div id="feed" class="feed"></div>
     </section>
     <aside class="col side-col">
@@ -40,6 +46,7 @@
     </aside>
   </main>
   <p class="foot-note">Unofficial concept by Mohammed Zaid. Not affiliated with Swish.</p>
+  <script src="/static/js/keys.js"></script>
   <script src="/static/js/dashboard.js"></script>
 </body>
 </html>
