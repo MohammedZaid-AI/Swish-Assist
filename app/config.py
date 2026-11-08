@@ -41,6 +41,11 @@ class Settings:
         self.UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", str(ROOT / "data" / "uploads")))
         self.SIMULATOR_ENABLED = os.getenv("SIMULATOR_ENABLED", "1") == "1"
         self.GITHUB_URL = os.getenv("GITHUB_URL", "https://github.com/")
+        # Keep-alive: ping our own /health so Render's free plan never puts the app to sleep.
+        # On Render (RENDER is set there) it defaults to every 10 minutes; elsewhere it is off. 0 turns it off.
+        self.KEEP_ALIVE_MINUTES = _float("KEEP_ALIVE_MINUTES", 10 if os.getenv("RENDER") else 0)
+        self.KEEP_ALIVE_URL = (os.getenv("KEEP_ALIVE_URL") or os.getenv("RENDER_EXTERNAL_URL")
+                               or os.getenv("PUBLIC_BASE_URL", "")).strip().rstrip("/")
 
     @property
     def use_supabase(self) -> bool:

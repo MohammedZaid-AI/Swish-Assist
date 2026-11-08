@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import agent, events, simulator, whatsapp
+from . import agent, events, keepalive, simulator, whatsapp
 from .config import ROOT, settings
 from .db import get_db
 from .models import LIVE_STATUSES, parse_ts, to_ist, utcnow
@@ -47,11 +47,15 @@ async def lifespan(app: FastAPI):
         log.info("Empty database, seeding demo data")
         await asyncio.to_thread(seed, db)
     Path(settings.UPLOAD_DIR).mkdir(parents=True, exist_ok=True)
-    task = asyncio.create_task(simulator.run()) if settings.SIMULATOR_ENABLED else None
+    tasks = []
+    if settings.SIMULATOR_ENABLED:
+        tasks.append(asyncio.create_task(simulator.run()))
+    if url := keepalive.target():
+        tasks.append(asyncio.create_task(keepalive.run(url, settings.KEEP_ALIVE_MINUTES)))
     log.info("Swish Assist ready. DB=%s, LLM=%s", db.backend, settings.GROQ_CHAT_MODEL if settings.llm_enabled else "offline")
     yield
-    if task:
-        task.cancel()
+    for t in tasks:
+        t.cancel()
 
 
 app = FastAPI(title="Swish Assist", lifespan=lifespan)

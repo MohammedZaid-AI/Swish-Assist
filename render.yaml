@@ -37,3 +37,6 @@ services:
         sync: false
       - key: GITHUB_URL
         sync: false
+      # Ping our own /health every 10 min so the free instance never sleeps (0 = off).
+      - key: KEEP_ALIVE_MINUTES
+        value: "10"

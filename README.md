@@ -119,6 +119,13 @@ The eval reads `test_images/labels.json`. Each case pairs a photo with an order 
 3. Set `PUBLIC_BASE_URL` to your Render URL, for example `https://swish-assist.onrender.com`.
 4. In the Twilio sandbox, set the webhook to `https://swish-assist.onrender.com/whatsapp`.
 
+**No "waking up" screen for testers.** Render's free plan puts the app to sleep after about 15 minutes without traffic, and the next visitor waits about a minute. Two things prevent that:
+
+- **The app pings itself.** On Render, [app/keepalive.py](app/keepalive.py) requests its own `/health` every 10 minutes (`KEEP_ALIVE_MINUTES`), so it never goes idle. It uses Render's `RENDER_EXTERNAL_URL` automatically.
+- **A GitHub Actions cron job is the backup.** [.github/workflows/keep-alive.yml](.github/workflows/keep-alive.yml) pings `/health` every 10 minutes and wakes the app after a deploy or restart. To turn it on, add a repository variable `APP_URL` = your Render URL (Settings → Secrets and variables → Actions → Variables). You can also run it by hand from the Actions tab.
+
+A free instance running all month uses about 744 of Render's 750 free instance hours, so keep this as the only always-on free service on the account.
+
 On startup the app creates its tables and seeds the demo data if the database is empty. With no Supabase variables it uses SQLite on the instance disk. That's fine for a demo, but it resets when Render restarts the instance.
 
 **Using Supabase instead:** run [sql/schema.sql](sql/schema.sql) once in the Supabase SQL editor, then set `SUPABASE_URL` and `SUPABASE_KEY` (the service role key, kept on the server only). The app seeds it on first start.
