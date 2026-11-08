@@ -1,0 +1,19 @@
+{
+  "about": "Each case pairs a photo with an order. expected_missing = ordered items NOT in the photo. expected_wrong = ordered items replaced by a clearly different dish. Add your own: drop a photo in this folder and add a case.",
+  "cases": [
+    {"image": "burger.jpg", "order_items": [{"name": "Grilled Chicken Cheese Burger", "qty": 1, "price": 179}, {"name": "Classic Fries", "qty": 1, "price": 99}], "expected_missing": ["Classic Fries"]},
+    {"image": "burger.jpg", "order_items": [{"name": "Grilled Chicken Cheese Burger", "qty": 1, "price": 179}], "expected_missing": []},
+    {"image": "broasted.jpg", "order_items": [{"name": "Fried Chicken (6 pcs)", "qty": 1, "price": 249}, {"name": "Masala Chai", "qty": 1, "price": 49}], "expected_missing": ["Masala Chai"]},
+    {"image": "biryani.jpg", "order_items": [{"name": "Chicken Biryani", "qty": 1, "price": 229}], "expected_missing": []},
+    {"image": "biryani.jpg", "order_items": [{"name": "Paneer Rice Bowl", "qty": 1, "price": 189}], "expected_missing": [], "expected_wrong": ["Paneer Rice Bowl"]},
+    {"image": "fried rice.jpg", "order_items": [{"name": "Veg Fried Rice", "qty": 1, "price": 159}, {"name": "Chicken Momos (6 pcs)", "qty": 1, "price": 129}], "expected_missing": ["Chicken Momos (6 pcs)"]},
+    {"image": "kebabs.jpg", "order_items": [{"name": "Chicken Tikka Skewers (4)", "qty": 1, "price": 219}], "expected_missing": []},
+    {"image": "mandi.jpg", "order_items": [{"name": "Chicken Mandi", "qty": 1, "price": 249}, {"name": "Cold Coffee", "qty": 1, "price": 119}], "expected_missing": ["Cold Coffee"]},
+    {"image": "noodles.jpg", "order_items": [{"name": "Veg Hakka Noodles", "qty": 1, "price": 139}, {"name": "Veg Momos (6 pcs)", "qty": 1, "price": 109}], "expected_missing": ["Veg Momos (6 pcs)"]},
+    {"image": "pizza.jpg", "order_items": [{"name": "Cheese Pizza", "qty": 1, "price": 199}, {"name": "Coke (500 ml)", "qty": 1, "price": 49}], "expected_missing": ["Coke (500 ml)"]},
+    {"image": "roti curry.jpg", "order_items": [{"name": "Butter Parotta (2 pcs)", "qty": 1, "price": 79}, {"name": "Chicken Curry", "qty": 1, "price": 169}], "expected_missing": []},
+    {"image": "seekh.jpg", "order_items": [{"name": "Seekh Kebab (4 pcs)", "qty": 1, "price": 209}, {"name": "Walnut Brownie", "qty": 1, "price": 89}], "expected_missing": ["Walnut Brownie"]},
+    {"image": "shawarma.jpg", "order_items": [{"name": "Chicken Shawarma", "qty": 3, "price": 129}], "expected_missing": []},
+    {"image": "shawarma.jpg", "order_items": [{"name": "Chicken Shawarma", "qty": 3, "price": 129}, {"name": "Peri Peri Fries", "qty": 1, "price": 119}], "expected_missing": ["Peri Peri Fries"]}
+  ]
+}
