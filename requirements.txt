@@ -1,0 +1,12 @@
+fastapi==0.162.2
+uvicorn[standard]==0.54.0
+groq==1.7.0
+supabase==2.34.1
+twilio==9.13.0
+pillow==13.0.0
+ImageHash==4.3.2
+pydantic==2.14.3
+python-dotenv==1.2.4
+python-multipart==0.0.33
+httpx==0.28.1
+pytest==9.2.0
